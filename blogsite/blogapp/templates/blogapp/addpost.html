@@ -1,0 +1,37 @@
+{% extends "blogapp/base.html" %}
+{% load static %}
+
+<title>{% block title %}Add Post{% endblock title %}</title>
+
+{% block content %}
+    <div class="container mt-2">
+        <div class="row">
+        <div class="col-sm-8 offset-2">
+            <h3 class="mt-3 text-info">Add Post</h3>
+                {% if message %}
+                <div class="alert alert-primary mt-2">
+                    <h4>{{message}}</h4>
+                </div>    
+                {% else %}
+                    {% if message2 %}
+                    <div class="alert alert-primary mt-2">
+                        <h4>{{message2}}</h4>
+                    </div>    
+                    {% endif %}
+                    <form action="" method="POST" class="mt-5">
+                        <div class="form-control">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                        </div>
+                    <input type="submit" value="Add Post" class="btn btn-success btn-sm mt-2">
+                    <a href="{% url 'dashboard' %}" class="btn btn-primary btn-sm mt-2" >Cancel</a>
+                </form>
+                {% endif %}
+        </div>    
+        </div>
+
+    </div>
+
+    
+{% endblock content %}
+

@@ -1,0 +1,20 @@
+{% extends "blogapp/base.html" %}
+{% load static %}
+
+<title>{% block title %}About{% endblock title %}</title>
+
+{% block content %}
+    <h3 class="mt-3 text-info">About Page</h3>
+    <div class="container mt-2">
+        <div class="row">
+        <div class="col-sm-8 offset-2">
+            <p>A blogpost web app in which user can post about their blogs and can interact with other writters blogs by given their thoughts about them.</p>
+            <p>The dashboard for every individual writter provides basic operations on their posted blogs, whether want to delete, update, and create new post.</p>
+            <p>To post a blog or comment out on any other writter blog, user have to be signed in first or have a account registerd on this site.</p>
+        </div>    
+        </div>
+
+    </div>
+    
+{% endblock content %}
+

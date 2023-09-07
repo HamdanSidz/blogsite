@@ -1,0 +1,41 @@
+{% extends "blogapp/base.html" %} {% load static %}
+
+<title>{% block title %}Home{% endblock title %}</title>
+
+{% block content %}
+<h3 class="mt-3 text-info">People Posts About</h3>
+
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-sm-8 offset-2">
+
+      {% if message %}
+                <div class="alert alert-info mt-3">
+                  <small><h5>{{message}}</h5></small>
+                </div>  
+      {% else %}          
+    
+      {% for ps in post %}
+      
+      <div class="both_post_comment_frontend_in_one_div">
+        <div class="card">
+          <div class="card-body">
+            <h6 class="card-title text-primary">{{ps.post_username}}</h6>
+    
+            <p class="card-text text-dark">{{ps.title}}</p>
+            <p class="card-text">{{ps.desc}} </p>
+            <small>{{ps.date_created}}</small>
+          </div>
+        </div>
+        <a href="{% url "commenturl" ps.id %}" class="btn btn-info btn-sm mb-3 mt-1 ">View Post</a>
+      </div>
+
+
+      {% endfor %}
+      {% endif %}
+      
+
+    </div>
+  </div>
+</div>
+{% endblock content %}
