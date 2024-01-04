@@ -72,25 +72,32 @@ def dashboard(request):
 
 
 def update(request, id):
-    if request.method == "POST":
-        post_user = Post.objects.get(pk=id)
-        form = Post_form(request.POST, instance=post_user)
-        if form.is_valid():
-            form.save()
-            return render(request, "blogapp/update.html", {"message": "Successfully Upadated"})
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            post_user = Post.objects.get(pk=id)
+            form = Post_form(request.POST, instance=post_user)
+            if form.is_valid():
+                form.save()
+                return render(request, "blogapp/update.html", {"message": "Successfully Upadated"})
+            else:
+                return render(request, "blogapp/update.html", {"message": "please fill the form in right manner"})
         else:
-            return render(request, "blogapp/update.html", {"message": "please fill the form in right manner"})
+            post = Post.objects.get(pk=id)
+            form = Post_form(instance=post)
+            return render(request, "blogapp/update.html", {"form": form})
     else:
-        post = Post.objects.get(pk=id)
-        form = Post_form(instance=post)
-        return render(request, "blogapp/update.html", {"form": form})
+        return HttpResponseRedirect("/login/")
+
 
 
 def delete(request, id):
-    if request.method == "POST":
-        post = Post.objects.get(pk=id)
-        post.delete()
-        return HttpResponseRedirect("/dashboard/")
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            post = Post.objects.get(pk=id)
+            post.delete()
+            return HttpResponseRedirect("/dashboard/")
+    else:
+        return HttpResponseRedirect("/login/")
 
 
 def addpost(request):

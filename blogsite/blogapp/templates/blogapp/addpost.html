@@ -18,14 +18,19 @@
                         <h4>{{message2}}</h4>
                     </div>    
                     {% endif %}
-                    <form action="" method="POST" class="mt-5">
-                        <div class="form-control">
-                            {% csrf_token %}
-                            {{form.as_p}}
-                        </div>
-                    <input type="submit" value="Add Post" class="btn btn-success btn-sm mt-2">
-                    <a href="{% url 'dashboard' %}" class="btn btn-primary btn-sm mt-2" >Cancel</a>
-                </form>
+                        {% if user.is_authenticated %}
+                            <form action="" method="POST" class="mt-5">
+                                <div class="form-control">
+                                    {% csrf_token %}
+                                    {{form.as_p}}
+                                </div>
+                            <input type="submit" value="Add Post" class="btn btn-success btn-sm mt-2">
+                            <a href="{% url 'dashboard' %}" class="btn btn-primary btn-sm mt-2" >Cancel</a>
+                            </form>
+                        {% else %}
+                            <h5 class="mt-3">Please login first</h5>
+                            <a href="{% url 'login' %}" class="btn btn-primary btn-sm mt-2" >Login</a>
+                        {% endif %}
                 {% endif %}
         </div>    
         </div>
